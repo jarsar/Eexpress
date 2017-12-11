@@ -9,14 +9,17 @@
 import UIKit
 
 class UserViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
     //MARK:Properties
     @IBOutlet weak var headimageView: UIImageView!
+    @IBOutlet weak var name: UILabel!
     
-    
+    var user:User?
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        if let saveduser=loaduser(){
+            user=saveduser
+        }
+        name.text=user?.name
         // Do any additional setup after loading the view.
     }
 
@@ -66,5 +69,7 @@ class UserViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
         // Pass the selected object to the new view controller.
     }
     */
-
+    private func loaduser()->User?{
+        return NSKeyedUnarchiver.unarchiveObject(withFile: User.ArchiveURL.path) as? User
+    }
 }

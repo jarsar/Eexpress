@@ -1,0 +1,11 @@
+framework module DAKeychain {
+  umbrella header "DAKeychain-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module DAKeychain.Swift {
+    header "DAKeychain-Swift.h"
+    requires objc
+}
