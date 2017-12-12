@@ -63,9 +63,6 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EZK-Cd-ApM">
                                         <rect key="frame" x="0.0" y="76" width="252" height="30"/>
                                         <state key="normal" title="搜索"/>
-                                        <connections>
-                                            <segue destination="cKm-YW-QYh" kind="show" id="Eo4-kJ-g7y"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -82,6 +79,7 @@
                     <connections>
                         <outlet property="dormitory" destination="cVX-3t-hfh" id="QfG-Bi-rTk"/>
                         <outlet property="expressname" destination="efw-yt-NXv" id="Oz4-s3-4A6"/>
+                        <outlet property="searchbutton" destination="EZK-Cd-ApM" id="1li-VA-ZO2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ynt-Be-csM" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -261,7 +259,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="gn8-dy-i7a">
-                                <rect key="frame" x="16" y="94" width="343" height="106"/>
+                                <rect key="frame" x="16" y="94" width="343" height="144"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="FUm-R3-bj7">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
@@ -297,11 +295,17 @@
                                             </textField>
                                         </subviews>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dwg-9N-f9u">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VD0-S8-RMK">
                                         <rect key="frame" x="0.0" y="76" width="343" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dwg-9N-f9u">
+                                        <rect key="frame" x="0.0" y="114" width="343" height="30"/>
                                         <state key="normal" title="确认修改"/>
                                         <connections>
-                                            <action selector="confirmbutton:" destination="4ki-Ly-yyZ" eventType="touchUpInside" id="Okz-3b-kdG"/>
+                                            <action selector="confirmjump:" destination="4ki-Ly-yyZ" eventType="touchUpInside" id="KVl-J8-5g3"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -315,8 +319,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="confirmbutton" destination="dwg-9N-f9u" id="Ff1-R6-gMf"/>
                         <outlet property="doornum" destination="EPW-3x-k75" id="6Z3-rq-e9X"/>
                         <outlet property="dormitory" destination="vWt-oO-6Gj" id="LHq-mZ-kmV"/>
+                        <outlet property="showerror" destination="VD0-S8-RMK" id="pmf-Ki-w9M"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U2k-hT-dQa" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1070,7 +1076,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="tXY-bc-CnS">
-                                <rect key="frame" x="16" y="94" width="343" height="144"/>
+                                <rect key="frame" x="16" y="94" width="343" height="182"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="hie-O7-rxh">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
@@ -1123,11 +1129,17 @@
                                             </textField>
                                         </subviews>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ooT-Np-NTu">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tPA-tQ-u3d">
                                         <rect key="frame" x="0.0" y="114" width="343" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ooT-Np-NTu">
+                                        <rect key="frame" x="0.0" y="152" width="343" height="30"/>
                                         <state key="normal" title="确认修改"/>
                                         <connections>
-                                            <action selector="confirmbutton:" destination="Tyq-sD-4EU" eventType="touchUpInside" id="WFH-L2-1sY"/>
+                                            <action selector="confirmjump:" destination="Tyq-sD-4EU" eventType="touchUpInside" id="HTS-VJ-KZk"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1141,9 +1153,11 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="confirmbutton" destination="ooT-Np-NTu" id="eno-ym-dAC"/>
                         <outlet property="newpassword1" destination="h1e-Br-UA5" id="dOe-2c-fea"/>
                         <outlet property="newpassword2" destination="t2s-FQ-d9v" id="55F-dq-goz"/>
                         <outlet property="oldpassword" destination="6Y5-dJ-syN" id="mdt-JV-cFR"/>
+                        <outlet property="showerror" destination="tPA-tQ-u3d" id="9uA-bC-ew3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xZW-gN-Na4" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1163,7 +1177,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="K15-KP-5WS">
-                                <rect key="frame" x="16" y="94" width="343" height="144"/>
+                                <rect key="frame" x="16" y="94" width="343" height="182"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="INg-K0-3DF">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
@@ -1216,11 +1230,17 @@
                                             </textField>
                                         </subviews>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6h2-8g-5JR">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYf-zu-R0q">
                                         <rect key="frame" x="0.0" y="114" width="343" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6h2-8g-5JR">
+                                        <rect key="frame" x="0.0" y="152" width="343" height="30"/>
                                         <state key="normal" title="确认修改"/>
                                         <connections>
-                                            <action selector="confirmbutton:" destination="lEL-52-mS5" eventType="touchUpInside" id="voH-a7-frV"/>
+                                            <action selector="confirmjump:" destination="lEL-52-mS5" eventType="touchUpInside" id="lCp-0z-ZYQ"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1235,8 +1255,10 @@
                     </view>
                     <connections>
                         <outlet property="QQnum" destination="V8b-95-HF8" id="sLF-ft-WOp"/>
+                        <outlet property="confirmbutton" destination="6h2-8g-5JR" id="WqM-4I-ArC"/>
                         <outlet property="name" destination="SVg-9J-4lo" id="cxx-bG-a89"/>
                         <outlet property="sex" destination="A1N-ZV-9ZG" id="0Fs-3B-9QW"/>
+                        <outlet property="showerror" destination="eYf-zu-R0q" id="cEL-uV-YzO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SJy-nW-4H0" userLabel="First Responder" sceneMemberID="firstResponder"/>

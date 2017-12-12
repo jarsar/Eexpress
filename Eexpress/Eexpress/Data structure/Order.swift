@@ -11,6 +11,9 @@ import os.log
 class Order:NSObject,NSCoding{
     var name:String=""
     var stunum:String=""
+    var QQ:String=""
+    var dormitory:String=""
+    var doornum:String=""
     var level:String=""
     var merchandise:String=""
     var expressname:String=""
@@ -26,6 +29,9 @@ class Order:NSObject,NSCoding{
     struct PropertyKey {
         static let name="name"
         static let stunum="stunum"
+        static let QQ="QQ"
+        static let dormitory="dormitory"
+        static let doornum="doornum"
         static let level="level"
         static let merchandise="merchandise"
         static let expressname="expressname"
@@ -36,9 +42,12 @@ class Order:NSObject,NSCoding{
         static let freetimeend="freetimeend"
     }
     
-    init?(name:String,stunum:String,level:String,merchandise:String,expressname:String,shelves:String,expressnum:String,reward:String,freetimestart:String,freetimeend:String) {
+    init?(name:String,stunum:String,QQ:String,dormitory:String,doornum:String,level:String,merchandise:String,expressname:String,shelves:String,expressnum:String,reward:String,freetimestart:String,freetimeend:String) {
         self.name=name
         self.stunum=stunum
+        self.QQ=QQ
+        self.dormitory=dormitory
+        self.doornum=doornum
         self.level=level
         self.merchandise=merchandise
         self.expressname=expressname
@@ -52,6 +61,9 @@ class Order:NSObject,NSCoding{
     func encode(with aCoder: NSCoder) {
         aCoder.encode(name, forKey: PropertyKey.name)
         aCoder.encode(stunum, forKey: PropertyKey.stunum)
+        aCoder.encode(QQ,forKey: PropertyKey.QQ)
+        aCoder.encode(dormitory,forKey: PropertyKey.dormitory)
+        aCoder.encode(doornum,forKey: PropertyKey.doornum)
         aCoder.encode(level, forKey: PropertyKey.level)
         aCoder.encode(merchandise, forKey: PropertyKey.merchandise)
         aCoder.encode(expressname, forKey: PropertyKey.expressname)
@@ -69,6 +81,9 @@ class Order:NSObject,NSCoding{
         }
         
         let name=aDecoder.decodeObject(forKey: PropertyKey.name) as? String
+        let QQ=aDecoder.decodeObject(forKey: PropertyKey.QQ) as? String
+        let dormitory=aDecoder.decodeObject(forKey: PropertyKey.dormitory) as? String
+        let doornum=aDecoder.decodeObject(forKey: PropertyKey.doornum) as? String
         let level=aDecoder.decodeObject(forKey: PropertyKey.level) as? String
         let merchandise=aDecoder.decodeObject(forKey: PropertyKey.merchandise) as? String
         let expressname=aDecoder.decodeObject(forKey: PropertyKey.expressname) as? String
@@ -78,6 +93,6 @@ class Order:NSObject,NSCoding{
         let freetimestart=aDecoder.decodeObject(forKey: PropertyKey.freetimestart) as? String
         let freetimeend=aDecoder.decodeObject(forKey: PropertyKey.freetimeend) as? String
         // Must call designated initializer.
-        self.init(name: name!, stunum: stunum, level: level!, merchandise: merchandise!, expressname: expressname!, shelves: shelves!, expressnum: expressnum!, reward: reward!, freetimestart: freetimestart!, freetimeend: freetimeend!)
+        self.init(name: name!, stunum: stunum,QQ: QQ!,dormitory: dormitory!,doornum:doornum!, level: level!, merchandise: merchandise!, expressname: expressname!, shelves: shelves!, expressnum: expressnum!, reward: reward!, freetimestart: freetimestart!, freetimeend: freetimeend!)
     }
 }

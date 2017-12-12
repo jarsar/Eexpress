@@ -13,7 +13,9 @@ class BusinessTableViewController: UITableViewController {
     var buss=[Receive]()
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        if let savedbusiness=loadbusiness(){
+            buss+=savedbusiness
+        }
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -93,5 +95,7 @@ class BusinessTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    private func loadbusiness()->[Receive]?{
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Receive.OArchiveURL.path) as? [Receive]
+    }
 }

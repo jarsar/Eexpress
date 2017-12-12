@@ -7,12 +7,14 @@
 //
 
 import UIKit
-
+import os.log
 class SearchViewController: UIViewController,UITextFieldDelegate {
 
 
     @IBOutlet weak var dormitory: UITextField!
     @IBOutlet weak var expressname: UITextField!
+    @IBOutlet weak var searchbutton: UIButton!
+    var search:Search?
     override func viewDidLoad() {
         super.viewDidLoad()
         dormitory.delegate = self
@@ -25,10 +27,15 @@ class SearchViewController: UIViewController,UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-
-    @IBAction func searchbutton(_ sender: UIButton) {
-        var search=Search(dormitory: dormitory.text!,expressname: expressname.text!)
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        guard let button=sender as? UIButton,button===searchbutton else {
+            os_log("The search button was not pressed, cancelling", log: OSLog.default, type: .debug)
+            return
+        }
+        let nextpage=segue.destination as? ListTableViewController
+        search=Search.init(dormitory: dormitory.text!, expressname: expressname.text!)
+        nextpage?.searchget=search
     }
     /*
     // MARK: - Navigation

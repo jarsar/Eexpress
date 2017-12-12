@@ -7,12 +7,17 @@
 //
 
 import UIKit
-
+import os.log
 class ReceiveTableViewController: UITableViewController {
 
     var recs=[Receive]()
+    var recds=[Receive]()
+    var recd:Receive?
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.rightBarButtonItem=self.editButtonItem
+        self.navigationItem.rightBarButtonItem?.title="确认收货"
+        
         get_receivedlist()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -47,25 +52,29 @@ class ReceiveTableViewController: UITableViewController {
         return cell
     }
 
-    /*
+
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
-    */
 
-    /*
+
+
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
+            recd=recs[indexPath.row]
+            recds.append(recd!)
+            savereceived()
+            recs.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
+
 
     /*
     // Override to support rearranging the table view.
@@ -91,6 +100,23 @@ class ReceiveTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        if(self.isEditing){
+            self.editButtonItem.title="完成"
+        }else{
+            self.editButtonItem.title="确认收货"
+        }
+    }
+    
+    private func savereceived(){
+        let isSuccessfulSaveReceived = NSKeyedArchiver.archiveRootObject(recds, toFile: Receive.UArchiveURL.path)
+        if isSuccessfulSaveReceived{
+            os_log("recds successfully saved.", log: OSLog.default, type: .debug)
+        }else{
+            os_log("Failed to save recds...", log: OSLog.default, type: .error)
+        }
+    }
     func get_receivedlist(){
         
     }

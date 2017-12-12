@@ -13,7 +13,12 @@ class EvaluationTableViewController: UITableViewController {
     var evas=[Receive]()
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        if let usavedeva=loadevasfromuser(){
+            evas+=usavedeva
+            if let osavedeva=loadevasformorder(){
+                evas+=osavedeva
+            }
+        }
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -44,7 +49,7 @@ class EvaluationTableViewController: UITableViewController {
             fatalError("The dequeued cell is not an instance of EvaluationTableViewCell.")
         }
         
-        // Configure the cell...
+        
         
         return cell
     }
@@ -93,5 +98,11 @@ class EvaluationTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    private func loadevasformorder()->[Receive]?{
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Receive.OArchiveURL.path) as? [Receive]
+    }
+    
+    private func loadevasfromuser()->[Receive]?{
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Receive.UArchiveURL.path) as? [Receive]
+    }
 }

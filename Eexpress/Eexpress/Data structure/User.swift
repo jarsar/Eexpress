@@ -20,6 +20,9 @@ class User:NSObject,NSCoding{
     static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
     static let ArchiveURL = DocumentsDirectory.appendingPathComponent("user")
     
+    override init() {
+        
+    }
     init(name:String,stunum:String,sex:String,QQ:String,dormitory:String,doornum:String,level:String){
         self.name=name
         self.stunum=stunum

@@ -55,7 +55,7 @@ class OrderViewController: UIViewController ,UITextFieldDelegate{
             return
         }
         let nextpage=segue.destination as? PickTableViewController
-        order=Order.init(name: (user?.name)!, stunum: (user?.stunum)!, level: (user?.level)!, merchandise: merchandise.text!, expressname: expressname.text!, shelves: shelves.text!, expressnum: expressnum.text!, reward: reward.text!, freetimestart: freetimestart.text!, freetimeend: freetimeend.text!)
+        order=Order.init(name: (user?.name)!, stunum: (user?.stunum)!,QQ:(user?.QQ)!,dormitory:(user?.dormitory)!,doornum:(user?.doornum)!, level: (user?.level)!, merchandise: merchandise.text!, expressname: expressname.text!, shelves: shelves.text!, expressnum: expressnum.text!, reward: reward.text!, freetimestart: freetimestart.text!, freetimeend: freetimeend.text!)
         nextpage?.picks.append(order!)
     }
     

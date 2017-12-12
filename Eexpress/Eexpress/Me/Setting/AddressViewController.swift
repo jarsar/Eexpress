@@ -7,11 +7,13 @@
 //
 
 import UIKit
-
+import os.log
 class AddressViewController: UIViewController,UITextFieldDelegate {
 
     @IBOutlet weak var dormitory: UITextField!
     @IBOutlet weak var doornum: UITextField!
+    @IBOutlet weak var showerror: UILabel!
+    @IBOutlet weak var confirmbutton: UIButton!
     var address:User?
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,11 +26,26 @@ class AddressViewController: UIViewController,UITextFieldDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    @IBAction func confirmbutton(_ sender: UIButton) {
-        address?.set_shipaddress(dormitory: dormitory.text!, doornum: doornum.text!)
+    private func saveaddress(){
+        let isSuccessfulSaveAddress=NSKeyedArchiver.archiveRootObject(address, toFile: User.ArchiveURL.path)
+        if isSuccessfulSaveAddress{
+            os_log("address successful saved.", log:OSLog.default,type:.debug)
+        }else{
+            os_log("Failed to save address...", log: OSLog.default, type: .error)
+        }
     }
-    
+    @IBAction func confirmjump(_ sender: UIButton) {
+        if dormitory.text != "",doornum.text != ""{
+            address=User()
+            address?.set_shipaddress(dormitory: dormitory.text!, doornum: doornum.text!)
+            saveaddress()
+            self.navigationController?.popViewController(animated: true)
+        }else{
+            showerror.text="地址不完整!"
+            dormitory.text=""
+            doornum.text=""
+        }
+    }
     /*
     // MARK: - Navigation
 
@@ -38,5 +55,5 @@ class AddressViewController: UIViewController,UITextFieldDelegate {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
 }

@@ -15,6 +15,9 @@ class Login:NSObject,NSCoding{
     static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
     static let ArchiveURL = DocumentsDirectory.appendingPathComponent("login")
     
+    override init() {
+        
+    }
     init?(stunum:String,password:String) {
         self.stunum=stunum
         self.password=password

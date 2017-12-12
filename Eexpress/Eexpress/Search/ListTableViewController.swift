@@ -7,16 +7,20 @@
 //
 
 import UIKit
-
+import os.log
 class ListTableViewController: UITableViewController {
 
     var lists=[Order]()
+    var busslist=[Receive]()
     var receivelists=[Order]()
-    var count=0
+    var searchget:Search?
+    var buss:Receive?
+    var user:User?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.rightBarButtonItem=self.editButtonItem
         self.navigationItem.rightBarButtonItem?.title="接单"
+        user=loaduser()
         get_searchlist()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -72,8 +76,24 @@ class ListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            receivelists.insert(lists[indexPath.row],at: count)
-            count=count+1
+            let merchandise=lists[indexPath.row].merchandise
+            let oname=lists[indexPath.row].name
+            let ostunum=lists[indexPath.row].stunum
+            let oQQ=lists[indexPath.row].QQ
+            let odormitory=lists[indexPath.row].dormitory
+            let odoornum=lists[indexPath.row].doornum
+            let olevel=lists[indexPath.row].level
+            
+            let rname=user?.name
+            let rstunum=user?.stunum
+            let rQQ=user?.QQ
+            let rdormitory=user?.dormitory
+            let rdoornum=user?.doornum
+            let rlevel=user?.level
+            
+            buss=Receive.init(merchandise: merchandise, oname: oname, ostunum: ostunum, oQQ: oQQ, odormitory: odormitory, odoornum: odoornum, olevel: olevel, rname: rname!, rstunum: rstunum!, rQQ: rQQ!, rdormitory: rdormitory!, rdoornum: rdoornum!, rlevel: rlevel!)
+            busslist.append(buss!)
+            savebusinsee()
             lists.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
@@ -115,5 +135,17 @@ class ListTableViewController: UITableViewController {
     }
     func get_searchlist(){
         
+    }
+    private func savebusinsee(){
+        let isSuccessfulSaveBusinsee = NSKeyedArchiver.archiveRootObject(busslist, toFile: Receive.OArchiveURL.path)
+        if isSuccessfulSaveBusinsee{
+            os_log("business successfully saved.", log: OSLog.default, type: .debug)
+        }else{
+            os_log("Failed to save business...", log: OSLog.default, type: .error)
+        }
+    }
+    
+    private func loaduser()->User?{
+        return NSKeyedUnarchiver.unarchiveObject(withFile: User.ArchiveURL.path) as? User
     }
 }

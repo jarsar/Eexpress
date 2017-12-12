@@ -7,18 +7,22 @@
 //
 
 import UIKit
-
+import os.log
 class ResetPasswordViewController: UIViewController,UITextFieldDelegate {
 
     @IBOutlet weak var oldpassword: UITextField!
     @IBOutlet weak var newpassword1: UITextField!
     @IBOutlet weak var newpassword2: UITextField!
+    @IBOutlet weak var showerror: UILabel!
+    @IBOutlet weak var confirmbutton: UIButton!
     var password:Login?
+    var oldlogin:Login?
     override func viewDidLoad() {
         super.viewDidLoad()
         oldpassword.delegate=self
         newpassword1.delegate=self
         newpassword2.delegate=self
+        oldlogin=loadpassword()
         // Do any additional setup after loading the view.
     }
 
@@ -26,12 +30,39 @@ class ResetPasswordViewController: UIViewController,UITextFieldDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    @IBAction func confirmbutton(_ sender: UIButton) {
-        let newpassword=newpassword1.text
-        password?.set_password(password: newpassword!)
+    private func judgepassword(){
+        if oldpassword.text==oldlogin?.password{
+            if newpassword1.text == newpassword2.text{
+                password=Login()
+                password?.set_password(password: newpassword1.text!)
+                savepassword()
+                self.navigationController?.popViewController(animated: true)
+            }else{
+                showerror.text="两次密码不一致!"
+                oldpassword.text=""
+                newpassword1.text=""
+                newpassword2.text=""
+            }
+        }else{
+            self.showerror.text="旧密码输入错误!"
+            oldpassword.text=""
+            newpassword1.text=""
+            newpassword2.text=""
+        }
     }
     
+    @IBAction func confirmjump(_ sender: Any) {
+        judgepassword()
+    }
+    
+    private func savepassword(){
+        let isSUccessfullSavePassword=NSKeyedArchiver.archiveRootObject(password, toFile: Login.ArchiveURL.path)
+        if isSUccessfullSavePassword{
+            os_log("password successful saved.", log:OSLog.default,type:.debug)
+        }else{
+            os_log("Failed to save password...", log: OSLog.default, type: .error)
+        }
+    }
     /*
     // MARK: - Navigation
 
@@ -41,5 +72,7 @@ class ResetPasswordViewController: UIViewController,UITextFieldDelegate {
         // Pass the selected object to the new view controller.
     }
     */
-
+    private func loadpassword()->Login?{
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Login.ArchiveURL.path) as? Login
+    }
 }
