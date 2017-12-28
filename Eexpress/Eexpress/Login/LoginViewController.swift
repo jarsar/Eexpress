@@ -7,10 +7,9 @@
 //
 
 import UIKit
-
-
 class LoginViewController: UIViewController,UITextFieldDelegate {
 
+    
     @IBOutlet weak var stunum: UITextField!
 
     @IBOutlet weak var password: UITextField!
@@ -19,6 +18,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         stunum.delegate=self
         password.delegate=self
         // Do any additional setup after loading the view.
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,6 +30,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
 
     @IBAction func loginbutton(_ sender: UIButton) {
         var login=Login(stunum: stunum.text!,password: password.text!)
+//        print(login.toJSONString()!)
     }
     /*
     // MARK: - Navigation
