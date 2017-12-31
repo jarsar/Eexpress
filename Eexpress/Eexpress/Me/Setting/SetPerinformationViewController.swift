@@ -8,6 +8,7 @@
 
 import UIKit
 import os.log
+import Alamofire
 class SetPerinformationViewController: UIViewController,UITextFieldDelegate {
 
     @IBOutlet weak var name: UITextField!
@@ -32,9 +33,19 @@ class SetPerinformationViewController: UIViewController,UITextFieldDelegate {
 
     @IBAction func confirmjump(_ sender: UIButton) {
         if name.text != "",sex.text != "",QQnum.text != ""{
-            information=User()
+            information=loaduser()
             information?.set_personinformation(name: name.text!, sex: sex.text!, QQ: QQnum.text!)
             saveinformation()
+            let json_user=[
+                "name":information?.name,
+                "stunum":information?.stunum,
+                "sex":information?.sex,
+                "QQnum":information?.QQnum,
+                "dormitory":information?.dormitory,
+                "doornum":information?.doornum,
+                "level":information?.level
+            ]
+             Alamofire.request("http://localhost:3000/user/setperinformation", method:.put, parameters:json_user, encoding: JSONEncoding.default, headers: nil)
             self.navigationController?.popViewController(animated: true)
         }else{
             showerror.text="信息不完整!"
@@ -60,4 +71,8 @@ class SetPerinformationViewController: UIViewController,UITextFieldDelegate {
             os_log("Failed to save information...", log: OSLog.default, type: .error)
         }
     }
+}
+
+private func loaduser()->User?{
+    return NSKeyedUnarchiver.unarchiveObject(withFile: User.ArchiveURL.path) as? User
 }

@@ -7,15 +7,19 @@
 //
 
 import UIKit
-
+import os.log
 class UserViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     //MARK:Properties
     @IBOutlet weak var headimageView: UIImageView!
     @IBOutlet weak var name: UILabel!
     
     var user:User?
+    var image:UIImage?
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let getimage = loadimage(){
+            headimageView.image=getimage
+        }
         if let saveduser=loaduser(){
             user=saveduser
         }
@@ -43,7 +47,8 @@ class UserViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
         
         // Set photoImageView to display the selected image.
         headimageView.image = selectedImage
-        
+        self.image=headimageView.image
+        saveimage()
         // Dismiss the picker.
         dismiss(animated: true, completion: nil)
     }
@@ -71,5 +76,18 @@ class UserViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
     */
     private func loaduser()->User?{
         return NSKeyedUnarchiver.unarchiveObject(withFile: User.ArchiveURL.path) as? User
+    }
+    
+    private func loadimage()->UIImage?{
+        return NSKeyedUnarchiver.unarchiveObject(withFile: UserImage.ArchiveURL.path) as? UIImage
+    }
+    
+    private func saveimage(){
+        let isSuccessfulSaveImage = NSKeyedArchiver.archiveRootObject(image, toFile: UserImage.ArchiveURL.path)
+        if isSuccessfulSaveImage {
+            os_log("image successfully saved.", log: OSLog.default, type: .debug)
+        } else {
+            os_log("Failed to save image...", log: OSLog.default, type: .error)
+        }
     }
 }

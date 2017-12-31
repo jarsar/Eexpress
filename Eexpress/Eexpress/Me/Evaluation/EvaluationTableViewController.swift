@@ -7,25 +7,32 @@
 //
 
 import UIKit
-
+import Alamofire
+import os.log
 class EvaluationTableViewController: UITableViewController {
 
-    var evas=[Receive]()
+    var evas=[Evaluation]()
+    var user:User?
+    var levels=[String]()
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let usavedeva=loadevasfromuser(){
-            evas+=usavedeva
-            if let osavedeva=loadevasformorder(){
-                evas+=osavedeva
-            }
-        }
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationItem.rightBarButtonItem=self.editButtonItem
+        self.navigationItem.rightBarButtonItem?.title="评价"
+        //        if let usavedeva=loadevasfromuser(){
+        //            evas+=usavedeva
+        //            if let osavedeva=loadevasformorder(){
+        //                evas+=osavedeva
+        //            }
+        //        }
+        get_evaluation()
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -48,9 +55,35 @@ class EvaluationTableViewController: UITableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? EvaluationTableViewCell else{
             fatalError("The dequeued cell is not an instance of EvaluationTableViewCell.")
         }
-        
-        
-        
+        let eva=evas[indexPath.row]
+        cell.merchandise.text=eva.merchandise
+        cell.rname.text=eva.name
+        if let level=cell.rlevel.text{
+            if level != ""{
+                let value1=Double(level)
+                let value2=Double(eva.level)
+                let value=(value1!+value2!)/2
+                let str=String(value)
+                for i in 0..<evas.count{
+                    if evas[i].stunum==eva.stunum{
+                        evas[i].level=str
+                    }
+                }
+                let json_level=[
+                    "stunum":eva.stunum,
+                    "level":str
+                ]
+            
+                let json_merchandise=[
+                    "merchandise":eva.merchandise,
+                    "stunum":user?.stunum,
+                    "anotherstunum":eva.stunum
+                ]
+                Alamofire.request("http://localhost:3000/user/level", method: .put, parameters: json_level, encoding: JSONEncoding.default, headers: nil)
+                Alamofire.request("http://localhost:3000/evaluation/delete", method: .post, parameters: json_merchandise, encoding: JSONEncoding.default, headers: nil)
+                cell.rlevel.text=level
+            }
+        }
         return cell
     }
 
@@ -98,6 +131,39 @@ class EvaluationTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    private func get_evaluation(){
+        user=loaduser()
+        let json_stunum=[
+            "stunum":user?.stunum
+        ]
+        Alamofire.request("http://localhost:3000/evaluation",parameters: json_stunum).validate().responseJSON{
+            response in switch response.result.isSuccess{
+            case true:
+                if let value=response.value{
+                    var json=JSON(value)
+                    print(json.count)
+                    for i in 0..<json.count{
+                        let geteva=Evaluation.init(merchandise: json[i]["merchandise"].string!,name: json[i]["name"].string!,stunum:json[i]["anotherstunum"].string!,level: json[i]["level"].string!)
+                        self.evas.append(geteva)
+                    }
+                    self.tableView.reloadData()
+                    os_log("getorder successfully saved.", log: OSLog.default, type: .debug)
+                }
+            case false:
+                os_log("Failed to get user order...", log: OSLog.default, type: .error)
+            }
+        }
+    }
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        if(self.isEditing){
+            self.editButtonItem.title="评价"
+            self.tableView.reloadData()
+            self.navigationController?.popViewController(animated: true)
+            self.navigationController?.popViewController(animated: true)
+            }
+        }
     private func loadevasformorder()->[Receive]?{
         return NSKeyedUnarchiver.unarchiveObject(withFile: Receive.OArchiveURL.path) as? [Receive]
     }
@@ -105,4 +171,9 @@ class EvaluationTableViewController: UITableViewController {
     private func loadevasfromuser()->[Receive]?{
         return NSKeyedUnarchiver.unarchiveObject(withFile: Receive.UArchiveURL.path) as? [Receive]
     }
+    
+    private func loaduser()->User?{
+        return NSKeyedUnarchiver.unarchiveObject(withFile: User.ArchiveURL.path) as? User
+    }
 }
+

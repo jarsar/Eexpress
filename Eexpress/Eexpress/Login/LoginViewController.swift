@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 class LoginViewController: UIViewController,UITextFieldDelegate {
 
     
@@ -30,7 +31,11 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
 
     @IBAction func loginbutton(_ sender: UIButton) {
         var login=Login(stunum: stunum.text!,password: password.text!)
-//        print(login.toJSONString()!)
+        let json_login=[
+            "stunum":stunum.text!,
+            "password":password.text!
+        ]
+        Alamofire.request("http://localhost:3000/login", method:.post, parameters:json_login, encoding: JSONEncoding.default, headers: nil)
     }
     /*
     // MARK: - Navigation

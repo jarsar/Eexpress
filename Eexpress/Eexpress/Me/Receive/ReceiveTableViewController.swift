@@ -8,24 +8,26 @@
 
 import UIKit
 import os.log
+import Alamofire
 class ReceiveTableViewController: UITableViewController {
 
     var recs=[Receive]()
     var recds=[Receive]()
     var recd:Receive?
+    var user:User?
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.rightBarButtonItem=self.editButtonItem
-        self.navigationItem.rightBarButtonItem?.title="确认收货"
-        
-        get_receivedlist()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationItem.rightBarButtonItem=self.editButtonItem
+        self.navigationItem.rightBarButtonItem?.title="确认收货"
+        get_receivedlist()
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -48,7 +50,13 @@ class ReceiveTableViewController: UITableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? ReceiveTableViewCell else {
             fatalError("The dequeued cell is not an instance of ReceiveTableViewCell.")
         }
-
+        let rec=self.recs[indexPath.row]
+        cell.merchandise.text=rec.merchandise
+        cell.rname.text=rec.rname
+        cell.rstunum.text=rec.rstunum
+        cell.rQQ.text=rec.rQQ
+        cell.rdormitory.text=rec.rdormitory
+        cell.rdoornum.text=rec.rdoornum
         return cell
     }
 
@@ -66,6 +74,21 @@ class ReceiveTableViewController: UITableViewController {
         if editingStyle == .delete {
             // Delete the row from the data source
             recd=recs[indexPath.row]
+            let json_evaluation=[
+                "merchandise":recd?.merchandise,
+                "name":recd?.rname,
+                "stunum":recd?.ostunum,
+                "anotherstunum":recd?.rstunum,
+                "level":recd?.rlevel
+            ]
+            
+            let json_merchandise=[
+                "merchandise":recd?.merchandise,
+                "ostunum":recd?.ostunum,
+                "rstunum":recd?.rstunum
+            ]
+            Alamofire.request("http://localhost:3000/evaluation", method: .post, parameters: json_evaluation, encoding: JSONEncoding.default, headers: nil)
+            Alamofire.request("http://localhost:3000/receive/delete", method: .post, parameters: json_merchandise, encoding: JSONEncoding.default, headers: nil)
             recds.append(recd!)
             savereceived()
             recs.remove(at: indexPath.row)
@@ -117,7 +140,30 @@ class ReceiveTableViewController: UITableViewController {
             os_log("Failed to save recds...", log: OSLog.default, type: .error)
         }
     }
-    func get_receivedlist(){
-        
+    private func get_receivedlist(){
+        user=loaduser()
+        let json_stunum=[
+            "stunum":user?.stunum
+        ]
+        Alamofire.request("http://localhost:3000/receive",parameters: json_stunum).validate().responseJSON{
+            response in switch response.result.isSuccess{
+            case true:
+                if let value=response.value{
+                    var json=JSON(value)
+                    print(json.count)
+                    for i in 0..<json.count{
+                        let getreceive=Receive.init(merchandise: json[i]["merchandise"].string!, oname: json[i]["oname"].string!, ostunum: json[i]["ostunum"].string!, oQQ: json[i]["oQQnum"].string!, odormitory: json[i]["odormitory"].string!, odoornum: json[i]["odoornum"].string!, olevel: json[i]["olevel"].string!, rname: json[i]["rname"].string!, rstunum: json[i]["rstunum"].string!, rQQ: json[i]["rQQnum"].string!, rdormitory: json[i]["rdormitory"].string!, rdoornum: json[i]["rdoornum"].string!, rlevel: json[i]["rlevel"].string!)
+                        self.recs.append(getreceive!)
+                    }
+                    self.tableView.reloadData()
+                    os_log("getorder successfully saved.", log: OSLog.default, type: .debug)
+                }
+            case false:
+                os_log("Failed to get user order...", log: OSLog.default, type: .error)
+            }
+        }
+    }
+    private func loaduser()->User?{
+        return NSKeyedUnarchiver.unarchiveObject(withFile: User.ArchiveURL.path) as? User
     }
 }

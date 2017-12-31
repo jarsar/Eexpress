@@ -42,6 +42,9 @@ class Order:NSObject,NSCoding{
         static let freetimeend="freetimeend"
     }
     
+    override init() {
+        
+    }
     init?(name:String,stunum:String,QQ:String,dormitory:String,doornum:String,level:String,merchandise:String,expressname:String,shelves:String,expressnum:String,reward:String,freetimestart:String,freetimeend:String) {
         self.name=name
         self.stunum=stunum
@@ -68,7 +71,7 @@ class Order:NSObject,NSCoding{
         aCoder.encode(merchandise, forKey: PropertyKey.merchandise)
         aCoder.encode(expressname, forKey: PropertyKey.expressname)
         aCoder.encode(shelves, forKey: PropertyKey.shelves)
-        aCoder.encode(expressnum, forKey: PropertyKey.expressname)
+        aCoder.encode(expressnum, forKey: PropertyKey.expressnum)
         aCoder.encode(reward, forKey: PropertyKey.reward)
         aCoder.encode(freetimestart, forKey: PropertyKey.freetimestart)
         aCoder.encode(freetimeend, forKey: PropertyKey.freetimeend)

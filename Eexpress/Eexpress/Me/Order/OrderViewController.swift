@@ -7,6 +7,7 @@
 //
 import UIKit
 import os.log
+import Alamofire
 class OrderViewController: UIViewController ,UITextFieldDelegate{
 
     var user:User?
@@ -32,6 +33,16 @@ class OrderViewController: UIViewController ,UITextFieldDelegate{
         user=loaduser()
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        merchandise.text=""
+        expressname.text=""
+        shelves.text=""
+        expressnum.text=""
+        reward.text=""
+        freetimestart.text=""
+        freetimeend.text=""
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -55,8 +66,24 @@ class OrderViewController: UIViewController ,UITextFieldDelegate{
             return
         }
         let nextpage=segue.destination as? PickTableViewController
-        order=Order.init(name: (user?.name)!, stunum: (user?.stunum)!,QQ:(user?.QQ)!,dormitory:(user?.dormitory)!,doornum:(user?.doornum)!, level: (user?.level)!, merchandise: merchandise.text!, expressname: expressname.text!, shelves: shelves.text!, expressnum: expressnum.text!, reward: reward.text!, freetimestart: freetimestart.text!, freetimeend: freetimeend.text!)
-        nextpage?.picks.append(order!)
+        order=Order.init(name: (user?.name)!, stunum: (user?.stunum)!,QQ:(user?.QQnum)!,dormitory:(user?.dormitory)!,doornum:(user?.doornum)!, level: (user?.level)!, merchandise: merchandise.text!, expressname: expressname.text!, shelves: shelves.text!, expressnum: expressnum.text!, reward: reward.text!, freetimestart: freetimestart.text!, freetimeend: freetimeend.text!)
+        let json_order=[
+        "name":order?.name,
+        "stunum":order?.stunum,
+        "QQnum":order?.QQ,
+        "dormitory":order?.dormitory,
+        "doornum":order?.doornum,
+        "level":order?.level,
+        "merchandise":order?.merchandise,
+        "expressname":order?.expressname,
+        "shelves":order?.shelves,
+        "expressnum":order?.expressnum,
+        "reward":order?.reward,
+        "freetimestart":order?.freetimestart,
+        "freetimeend":order?.freetimeend
+        ]
+        Alamofire.request("http://localhost:3000/order", method:.post, parameters:json_order, encoding: JSONEncoding.default, headers: nil)
+//        nextpage?.picks.append(order!)
     }
     
     private func loaduser()->User?{

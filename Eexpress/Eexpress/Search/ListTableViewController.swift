@@ -8,6 +8,7 @@
 
 import UIKit
 import os.log
+import Alamofire
 class ListTableViewController: UITableViewController {
 
     var lists=[Order]()
@@ -18,17 +19,18 @@ class ListTableViewController: UITableViewController {
     var user:User?
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.rightBarButtonItem=self.editButtonItem
-        self.navigationItem.rightBarButtonItem?.title="接单"
-        user=loaduser()
-        get_searchlist()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationItem.rightBarButtonItem=self.editButtonItem
+        self.navigationItem.rightBarButtonItem?.title="接单"
+        user=loaduser()
+        get_searchlist()
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -54,12 +56,13 @@ class ListTableViewController: UITableViewController {
         }
         
         let list=lists[indexPath.row]
+        cell.merchandise.text=list.merchandise
         cell.name.text=list.name
         cell.level.text=list.level
         cell.stunum.text=list.stunum
-        cell.expressnum.text=list.expressnum
+        cell.expressname.text=list.expressname
         cell.shelves.text=list.shelves
-        cell.expressnum.text=list.expressname
+        cell.expressnum.text=list.expressnum
         cell.reward.text=list.reward
         cell.freetimestart.text=list.freetimestart
         cell.freetimeend.text=list.freetimeend
@@ -86,16 +89,39 @@ class ListTableViewController: UITableViewController {
             
             let rname=user?.name
             let rstunum=user?.stunum
-            let rQQ=user?.QQ
+            let rQQ=user?.QQnum
             let rdormitory=user?.dormitory
             let rdoornum=user?.doornum
             let rlevel=user?.level
             
             buss=Receive.init(merchandise: merchandise, oname: oname, ostunum: ostunum, oQQ: oQQ, odormitory: odormitory, odoornum: odoornum, olevel: olevel, rname: rname!, rstunum: rstunum!, rQQ: rQQ!, rdormitory: rdormitory!, rdoornum: rdoornum!, rlevel: rlevel!)
+            let json_receive=[
+                "merchandise":buss?.merchandise,
+                "oname":buss?.oname,
+                "ostunum":buss?.ostunum,
+                "oQQnum":buss?.oQQ,
+                "odormitory":buss?.odormitory,
+                "odoornum":buss?.odoornum,
+                "olevel":buss?.olevel,
+                "rname":buss?.rname,
+                "rstunum":buss?.rstunum,
+                "rQQnum":buss?.rQQ,
+                "rdormitory":buss?.rdormitory,
+                "rdoornum":buss?.rdoornum,
+                "rlevel":buss?.rlevel
+            ]
+            
+            let json_merchandise=[
+                "stunum":buss?.ostunum,
+                "merchandise":buss?.merchandise
+            ]
+            Alamofire.request("http://localhost:3000/receive", method: .post, parameters: json_receive, encoding: JSONEncoding.default, headers: nil)
+            Alamofire.request("http://localhost:3000/business", method: .post, parameters: json_receive, encoding: JSONEncoding.default, headers: nil)
+            Alamofire.request("http://localhost:3000/order/delete", method: .post, parameters: json_merchandise, encoding: JSONEncoding.default, headers: nil)
             busslist.append(buss!)
-            savebusinsee()
+                savebusinsee()
             lists.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+                tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
@@ -133,9 +159,32 @@ class ListTableViewController: UITableViewController {
             self.editButtonItem.title="接单"
         }
     }
-    func get_searchlist(){
-        
+    private func get_searchlist(){
+        let json_search=[
+            "dormitory":self.searchget?.dormitory,
+            "expressname":self.searchget?.expressname
+        ]
+        Alamofire.request("http://localhost:3000/order/all",parameters: json_search).validate().responseJSON{
+            response in switch response.result.isSuccess{
+            case true:
+                if let value=response.value{
+                    var json=JSON(value)
+                    print(json.count)
+                    for i in 0..<json.count{
+                        if (json[i]["stunum"].string) != (self.user?.stunum)!{
+                            var getlist=Order.init(name: json[i]["name"].string!, stunum: json[i]["stunum"].string!, QQ: json[i]["QQnum"].string!, dormitory: json[i]["dormitory"].string!, doornum: json[i]["doornum"].string!, level: json[i]["level"].string!, merchandise: json[i]["merchandise"].string!, expressname: json[i]["expressname"].string!, shelves: json[i]["shelves"].string!, expressnum: json[i]["expressnum"].string!, reward: json[i]["reward"].string!, freetimestart: json[i]["freetimestart"].string!, freetimeend: json[i]["freetimeend"].string!)
+                            self.lists.append(getlist!)
+                            }
+                        }
+                    self.tableView.reloadData()
+                    os_log("getorder successfully saved.", log: OSLog.default, type: .debug)
+                    }
+            case false:
+                os_log("Failed to get user order...", log: OSLog.default, type: .error)
+            }
+        }
     }
+    
     private func savebusinsee(){
         let isSuccessfulSaveBusinsee = NSKeyedArchiver.archiveRootObject(busslist, toFile: Receive.OArchiveURL.path)
         if isSuccessfulSaveBusinsee{

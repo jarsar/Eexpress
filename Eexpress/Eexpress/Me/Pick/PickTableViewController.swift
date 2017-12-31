@@ -8,22 +8,26 @@
 
 import UIKit
 import os.log
+import Alamofire
 class PickTableViewController: UITableViewController {
 
     var picks=[Order]()
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let savedpicks=loadpicks(){
-            picks += savedpicks
-        }
-        get_userorder()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+//        if let savedpicks=loadpicks(){
+//            picks += savedpicks
+//        }
+        get_userorder()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -104,7 +108,59 @@ class PickTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-    func get_userorder(){
+    private func get_userorder(){
+        var user=loaduser()
+        let json_user=[
+            "name":user?.name,
+            "stunum":user?.stunum,
+            "sex":user?.sex,
+            "QQnum":user?.QQnum,
+            "dormitory":user?.dormitory,
+            "doornum":user?.doornum,
+            "level":user?.level
+        ]
+//        let url = URL(string:"http://localhost:3000/order")
+        Alamofire.request("http://localhost:3000/order",parameters: json_user).validate().responseJSON{
+            response in switch response.result.isSuccess{
+            case true:
+                if let value=response.value{
+                    let json=JSON(value)
+                    for i in 0..<json.count{
+                        var getpick=Order.init(name: json[i]["name"].string!, stunum: json[i]["stunum"].string!, QQ: json[i]["QQnum"].string!, dormitory: json[i]["dormitory"].string!, doornum: json[i]["doornum"].string!, level: json[i]["level"].string!, merchandise: json[i]["merchandise"].string!, expressname: json[i]["expressname"].string!, shelves: json[i]["shelves"].string!, expressnum: json[i]["expressnum"].string!, reward: json[i]["reward"].string!, freetimestart: json[i]["freetimestart"].string!, freetimeend: json[i]["freetimeend"].string!)
+                        if self.picks.contains(getpick!)==false{
+                            self.picks.append(getpick!)
+                        }
+                    }
+                    self.tableView.reloadData()
+                    self.saveOrder()
+                    os_log("getorder successfully saved.", log: OSLog.default, type: .debug)
+                }
+            case false:
+                os_log("Failed to get user order...", log: OSLog.default, type: .error)
+            }
+        }
+//        Alamofire.request(url!).validate().responseJSON{
+//            response in switch response.result.isSuccess{
+//            case true:
+//                if let value=response.value{
+//                    let json=JSON(value)
+//                    print(json.count)
+//                    for i in 0..<json.count{
+//                        if json[i]["stunum"].string==user?.stunum{
+//                            var getpick=Order.init(name: json[i]["name"].string!, stunum: json[i]["stunum"].string!, QQ: json[i]["QQnum"].string!, dormitory: json[i]["dormitory"].string!, doornum: json[i]["doornum"].string!, level: json[i]["level"].string!, merchandise: json[i]["merchandise"].string!, expressname: json[i]["expressname"].string!, shelves: json[i]["shelves"].string!, expressnum: json[i]["expressnum"].string!, reward: json[i]["reward"].string!, freetimestart: json[i]["freetimestart"].string!, freetimeend: json[i]["freetimeend"].string!)
+//                            if self.picks.contains(getpick!)==false{
+//                                self.picks.append(getpick!)
+//                            }
+//                        }
+//                    }
+//                    self.tableView.reloadData()
+//                    self.saveOrder()
+//                os_log("getorder successfully saved.", log: OSLog.default, type: .debug)
+//                }
+//            case false:
+//                os_log("Failed to get user order...", log: OSLog.default, type: .error)
+//            }
+//        }
     }
     
     private func saveOrder(){
@@ -118,5 +174,8 @@ class PickTableViewController: UITableViewController {
     
     private func loadpicks()->[Order]?{
         return NSKeyedUnarchiver.unarchiveObject(withFile: Order.ArchiveURL.path) as? [Order]
+    }
+    private func loaduser()->User?{
+        return NSKeyedUnarchiver.unarchiveObject(withFile: User.ArchiveURL.path) as? User
     }
 }

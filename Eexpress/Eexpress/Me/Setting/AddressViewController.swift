@@ -8,6 +8,7 @@
 
 import UIKit
 import os.log
+import Alamofire
 class AddressViewController: UIViewController,UITextFieldDelegate {
 
     @IBOutlet weak var dormitory: UITextField!
@@ -36,15 +37,29 @@ class AddressViewController: UIViewController,UITextFieldDelegate {
     }
     @IBAction func confirmjump(_ sender: UIButton) {
         if dormitory.text != "",doornum.text != ""{
-            address=User()
+            address=loaduser()
             address?.set_shipaddress(dormitory: dormitory.text!, doornum: doornum.text!)
             saveaddress()
+            let json_user=[
+                "name":address?.name,
+                "stunum":address?.stunum,
+                "sex":address?.sex,
+                "QQnum":address?.QQnum,
+                "dormitory":address?.dormitory,
+                "doornum":address?.doornum,
+                "level":address?.level
+            ]
+            Alamofire.request("http://localhost:3000/user/address", method:.put, parameters:json_user, encoding: JSONEncoding.default, headers: nil)
             self.navigationController?.popViewController(animated: true)
         }else{
             showerror.text="地址不完整!"
             dormitory.text=""
             doornum.text=""
         }
+    }
+    
+    private func loaduser()->User?{
+        return NSKeyedUnarchiver.unarchiveObject(withFile: User.ArchiveURL.path) as? User
     }
     /*
     // MARK: - Navigation

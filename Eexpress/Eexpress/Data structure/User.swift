@@ -12,11 +12,10 @@ class User:NSObject,NSCoding{
     var name:String = ""
     var stunum:String=""
     var sex:String=""
-    var QQ:String=""
+    var QQnum:String=""
     var dormitory:String=""
     var doornum:String=""
     var level:String=""
-    
     static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
     static let ArchiveURL = DocumentsDirectory.appendingPathComponent("user")
     
@@ -27,7 +26,7 @@ class User:NSObject,NSCoding{
         self.name=name
         self.stunum=stunum
         self.sex=sex
-        self.QQ=QQ
+        self.QQnum=QQ
         self.dormitory=dormitory
         self.doornum=doornum
         self.level=level
@@ -37,7 +36,7 @@ class User:NSObject,NSCoding{
         self.name=name
         self.stunum=stunum
         self.sex=sex
-        self.QQ=QQ
+        self.QQnum=QQ
         self.dormitory=dormitory
         self.doornum=doornum
     }
@@ -50,7 +49,7 @@ class User:NSObject,NSCoding{
     func set_personinformation(name:String,sex:String,QQ:String){
         self.name=name
         self.sex=sex
-        self.QQ=QQ
+        self.QQnum=QQ
     }
     
     struct PropertyKey {
@@ -67,7 +66,7 @@ class User:NSObject,NSCoding{
         aCoder.encode(name, forKey: PropertyKey.name)
         aCoder.encode(stunum, forKey: PropertyKey.stunum)
         aCoder.encode(sex, forKey: PropertyKey.sex)
-        aCoder.encode(QQ, forKey: PropertyKey.QQ)
+        aCoder.encode(QQnum, forKey: PropertyKey.QQ)
         aCoder.encode(dormitory, forKey: PropertyKey.dormitory)
         aCoder.encode(doornum, forKey: PropertyKey.doornum)
         aCoder.encode(level, forKey: PropertyKey.level)

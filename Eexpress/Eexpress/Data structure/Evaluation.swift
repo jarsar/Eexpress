@@ -8,6 +8,15 @@
 
 import UIKit
 class Evaluation{
-    var ordernum=0
-    var point=0
+    var merchandise:String=""
+    var name:String=""
+    var stunum:String=""
+    var level:String=""
+    
+    init(merchandise:String,name:String,stunum:String,level:String) {
+        self.merchandise=merchandise
+        self.name=name
+        self.stunum=stunum
+        self.level=level
+    }
 }

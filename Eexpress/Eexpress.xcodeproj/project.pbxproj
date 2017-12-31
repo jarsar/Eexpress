@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0BA6826202C1F2AEE28D8029 /* Pods_Eexpress.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AABC6CDE853CA33996BDD69 /* Pods_Eexpress.framework */; };
 		4D20A5BA1FDC5C2E009397DD /* EvaluationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D20A5B91FDC5C2E009397DD /* EvaluationTableViewCell.swift */; };
 		4D20A5BC1FDC5F26009397DD /* BusinessTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D20A5BB1FDC5F26009397DD /* BusinessTableViewCell.swift */; };
-		4D3D54D11FC52290008C020E /* DAKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3D54D01FC52290008C020E /* DAKeychain.swift */; };
 		4D40CEF91FC47AEB00FF50EE /* RegisteredViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D40CEF81FC47AEB00FF50EE /* RegisteredViewController.swift */; };
 		4D7599811FB1941700E93333 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D7599801FB1941700E93333 /* AppDelegate.swift */; };
 		4D7599881FB1941700E93333 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D7599861FB1941700E93333 /* Main.storyboard */; };
@@ -32,12 +32,14 @@
 		4D9B7D8E1FDC52AF00BBC6EF /* ReceiveTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9B7D8D1FDC52AF00BBC6EF /* ReceiveTableViewCell.swift */; };
 		4DD7A5391FF40EAB00F826C2 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD7A5381FF40EAA00F826C2 /* SwiftyJSON.swift */; };
 		4DDBFE041FC59FDD00F4EB74 /* StartUITabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DDBFE031FC59FDD00F4EB74 /* StartUITabBarController.swift */; };
+		4DDC83801FF4E0080088E700 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DDC83811FF4E0080088E700 /* Alamofire.framework */; };
 		4DE48FB61FD45B99005318BE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE48FB51FD45B99005318BE /* User.swift */; };
 		4DE48FB81FD45D7F005318BE /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE48FB71FD45D7F005318BE /* Order.swift */; };
 		4DE48FBA1FD476B5005318BE /* Receive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE48FB91FD476B5005318BE /* Receive.swift */; };
 		4DE48FBC1FD47780005318BE /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE48FBB1FD47780005318BE /* Search.swift */; };
 		4DE48FC01FD4792F005318BE /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE48FBF1FD4792F005318BE /* Login.swift */; };
-		4DE912181FF39B81009A4846 /* Json.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE912171FF39B81009A4846 /* Json.swift */; };
+		4DE922E51FF919580051AAC8 /* Evaluation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE922E41FF919580051AAC8 /* Evaluation.swift */; };
+		4DE922E71FF950920051AAC8 /* UserImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE922E61FF950920051AAC8 /* UserImage.swift */; };
 		4DF47B5C1FD5832500AB3688 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF47B5B1FD5832500AB3688 /* SearchViewController.swift */; };
 		4DF47B5F1FD585A800AB3688 /* AddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF47B5E1FD585A800AB3688 /* AddressViewController.swift */; };
 		4DF47B611FD585F100AB3688 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF47B601FD585F000AB3688 /* ResetPasswordViewController.swift */; };
@@ -62,9 +64,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		34D09037BF6AD9F56FCA2DB6 /* Pods-Eexpress.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Eexpress.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Eexpress/Pods-Eexpress.debug.xcconfig"; sourceTree = "<group>"; };
+		4AABC6CDE853CA33996BDD69 /* Pods_Eexpress.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Eexpress.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D20A5B91FDC5C2E009397DD /* EvaluationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluationTableViewCell.swift; sourceTree = "<group>"; };
 		4D20A5BB1FDC5F26009397DD /* BusinessTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessTableViewCell.swift; sourceTree = "<group>"; };
-		4D3D54D01FC52290008C020E /* DAKeychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DAKeychain.swift; sourceTree = "<group>"; };
 		4D40CEF81FC47AEB00FF50EE /* RegisteredViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredViewController.swift; sourceTree = "<group>"; };
 		4D75997D1FB1941700E93333 /* Eexpress.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Eexpress.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D7599801FB1941700E93333 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -93,16 +96,19 @@
 		4D9B7D8D1FDC52AF00BBC6EF /* ReceiveTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiveTableViewCell.swift; sourceTree = "<group>"; };
 		4DD7A5381FF40EAA00F826C2 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		4DDBFE031FC59FDD00F4EB74 /* StartUITabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartUITabBarController.swift; sourceTree = "<group>"; };
+		4DDC83811FF4E0080088E700 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DE48FB51FD45B99005318BE /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4DE48FB71FD45D7F005318BE /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		4DE48FB91FD476B5005318BE /* Receive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Receive.swift; sourceTree = "<group>"; };
 		4DE48FBB1FD47780005318BE /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		4DE48FBF1FD4792F005318BE /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
-		4DE912171FF39B81009A4846 /* Json.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Json.swift; sourceTree = "<group>"; };
+		4DE922E41FF919580051AAC8 /* Evaluation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Evaluation.swift; sourceTree = "<group>"; };
+		4DE922E61FF950920051AAC8 /* UserImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserImage.swift; sourceTree = "<group>"; };
 		4DF47B5B1FD5832500AB3688 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		4DF47B5E1FD585A800AB3688 /* AddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressViewController.swift; sourceTree = "<group>"; };
 		4DF47B601FD585F000AB3688 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
 		4DF47B631FD5862000AB3688 /* SetPerinformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetPerinformationViewController.swift; sourceTree = "<group>"; };
+		550A7C86C659EA1A854D3EA8 /* Pods-Eexpress.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Eexpress.release.xcconfig"; path = "Pods/Target Support Files/Pods-Eexpress/Pods-Eexpress.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +116,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DDC83801FF4E0080088E700 /* Alamofire.framework in Frameworks */,
+				0BA6826202C1F2AEE28D8029 /* Pods_Eexpress.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,9 +138,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		463D7C970357EE9B120D8E28 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				34D09037BF6AD9F56FCA2DB6 /* Pods-Eexpress.debug.xcconfig */,
+				550A7C86C659EA1A854D3EA8 /* Pods-Eexpress.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		4D3D54CB1FC51C63008C020E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4DDC83811FF4E0080088E700 /* Alamofire.framework */,
+				4AABC6CDE853CA33996BDD69 /* Pods_Eexpress.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -145,6 +164,7 @@
 				4D7599A11FB1941700E93333 /* EexpressUITests */,
 				4D75997E1FB1941700E93333 /* Products */,
 				4D3D54CB1FC51C63008C020E /* Frameworks */,
+				463D7C970357EE9B120D8E28 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -161,7 +181,6 @@
 		4D75997F1FB1941700E93333 /* Eexpress */ = {
 			isa = PBXGroup;
 			children = (
-				4DD7A5381FF40EAA00F826C2 /* SwiftyJSON.swift */,
 				4DE48FC11FD47973005318BE /* Data structure */,
 				4DF47B5A1FD582F600AB3688 /* Search */,
 				4D7599C21FB3059200E93333 /* Login */,
@@ -172,9 +191,8 @@
 				4D7599891FB1941700E93333 /* Assets.xcassets */,
 				4D7599B01FB1A4D500E93333 /* LaunchScreen.storyboard */,
 				4D75998E1FB1941700E93333 /* Info.plist */,
-				4D3D54D01FC52290008C020E /* DAKeychain.swift */,
+				4DD7A5381FF40EAA00F826C2 /* SwiftyJSON.swift */,
 				4DDBFE031FC59FDD00F4EB74 /* StartUITabBarController.swift */,
-				4DE912171FF39B81009A4846 /* Json.swift */,
 			);
 			path = Eexpress;
 			sourceTree = "<group>";
@@ -276,11 +294,13 @@
 		4DE48FC11FD47973005318BE /* Data structure */ = {
 			isa = PBXGroup;
 			children = (
+				4DE922E41FF919580051AAC8 /* Evaluation.swift */,
 				4DE48FB71FD45D7F005318BE /* Order.swift */,
 				4DE48FB91FD476B5005318BE /* Receive.swift */,
 				4DE48FBB1FD47780005318BE /* Search.swift */,
 				4DE48FBF1FD4792F005318BE /* Login.swift */,
 				4DE48FB51FD45B99005318BE /* User.swift */,
+				4DE922E61FF950920051AAC8 /* UserImage.swift */,
 			);
 			path = "Data structure";
 			sourceTree = "<group>";
@@ -312,9 +332,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4D7599A71FB1941700E93333 /* Build configuration list for PBXNativeTarget "Eexpress" */;
 			buildPhases = (
+				8A46F84EC7F7B92C243BDA88 /* [CP] Check Pods Manifest.lock */,
 				4D7599791FB1941700E93333 /* Sources */,
 				4D75997A1FB1941700E93333 /* Frameworks */,
 				4D75997B1FB1941700E93333 /* Resources */,
+				CA915D290A8670F135254E71 /* [CP] Embed Pods Frameworks */,
+				CFABD883ABC101789681388C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -434,6 +457,60 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		8A46F84EC7F7B92C243BDA88 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Eexpress-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CA915D290A8670F135254E71 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Eexpress/Pods-Eexpress-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Eexpress/Pods-Eexpress-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CFABD883ABC101789681388C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Eexpress/Pods-Eexpress-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		4D7599791FB1941700E93333 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -441,6 +518,7 @@
 			files = (
 				4D20A5BA1FDC5C2E009397DD /* EvaluationTableViewCell.swift in Sources */,
 				4D20A5BC1FDC5F26009397DD /* BusinessTableViewCell.swift in Sources */,
+				4DE922E51FF919580051AAC8 /* Evaluation.swift in Sources */,
 				4DE48FBC1FD47780005318BE /* Search.swift in Sources */,
 				4DD7A5391FF40EAB00F826C2 /* SwiftyJSON.swift in Sources */,
 				4DDBFE041FC59FDD00F4EB74 /* StartUITabBarController.swift in Sources */,
@@ -450,6 +528,7 @@
 				4D7599811FB1941700E93333 /* AppDelegate.swift in Sources */,
 				4D800B581FD7A08000999F24 /* ReceiveTableViewController.swift in Sources */,
 				4DE48FBA1FD476B5005318BE /* Receive.swift in Sources */,
+				4DE922E71FF950920051AAC8 /* UserImage.swift in Sources */,
 				4D9B7D8C1FDC4C2C00BBC6EF /* PickTableViewCell.swift in Sources */,
 				4D7599B91FB302DF00E93333 /* OrderViewController.swift in Sources */,
 				4DF47B5F1FD585A800AB3688 /* AddressViewController.swift in Sources */,
@@ -457,13 +536,11 @@
 				4DE48FB81FD45D7F005318BE /* Order.swift in Sources */,
 				4DF47B611FD585F100AB3688 /* ResetPasswordViewController.swift in Sources */,
 				4D7599B51FB1A57300E93333 /* UserViewController.swift in Sources */,
-				4D3D54D11FC52290008C020E /* DAKeychain.swift in Sources */,
 				4D800B5E1FD7A18400999F24 /* EvaluationTableViewController.swift in Sources */,
 				4D9B7D8E1FDC52AF00BBC6EF /* ReceiveTableViewCell.swift in Sources */,
 				4DF47B5C1FD5832500AB3688 /* SearchViewController.swift in Sources */,
 				4D800B651FD7C67400999F24 /* ListTableViewCell.swift in Sources */,
 				4D7599B31FB1A55500E93333 /* HomeViewController.swift in Sources */,
-				4DE912181FF39B81009A4846 /* Json.swift in Sources */,
 				4D7599B71FB1B12C00E93333 /* HeadImage.swift in Sources */,
 				4DE48FB61FD45B99005318BE /* User.swift in Sources */,
 				4D800B611FD7A22400999F24 /* BusinessTableViewController.swift in Sources */,
@@ -624,6 +701,7 @@
 		};
 		4D7599A81FB1941700E93333 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34D09037BF6AD9F56FCA2DB6 /* Pods-Eexpress.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -643,6 +721,7 @@
 		};
 		4D7599A91FB1941700E93333 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 550A7C86C659EA1A854D3EA8 /* Pods-Eexpress.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

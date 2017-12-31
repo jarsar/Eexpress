@@ -8,6 +8,7 @@
 
 import UIKit
 import os.log
+import Alamofire
 class RegisteredViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var username: UITextField!
     @IBOutlet weak var usernum: UITextField!
@@ -62,14 +63,27 @@ class RegisteredViewController: UIViewController,UITextFieldDelegate {
         password2=userpassword2nd.text!
         user=User.init(name: username.text!, stunum: usernum.text!, sex:sex.text!,QQ: QQ.text!, dormitory: dormitory.text!, doornum: doornum.text!,level: "2.5")
         if (password1==password2 && password1 != ""){
-//            dakeychain.shared[num] = password1
-            login=Login.init(stunum: username.text!, password: password1)
+            login=Login.init(stunum: usernum.text!, password: password1)
             saveUser()
-            //self.view.addSubview()
+            let json_login=[
+                "stunum":usernum.text!,
+                "password":password1
+            ]
+            let json_user=[
+                "name":username.text!,
+                "stunum":usernum.text!,
+                "sex":sex.text!,
+                "QQnum":QQ.text!,
+                "dormitory":dormitory.text!,
+                "doornum":doornum.text!,
+                "level":"2.5"
+            ]
+            Alamofire.request("http://localhost:3000/login", method:.post, parameters:json_login, encoding: JSONEncoding.default, headers: nil)
+            Alamofire.request("http://localhost:3000/user", method:.post, parameters:json_user, encoding: JSONEncoding.default, headers: nil)
+            self.navigationController?.popViewController(animated: true)
         }
         else{
             information.text="密码输入有误,请再次输入"
-            usernum.text=""
             userpassword1st.text=""
             userpassword2nd.text=""
         }
@@ -77,14 +91,8 @@ class RegisteredViewController: UIViewController,UITextFieldDelegate {
     
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        super.prepare(for: segue, sender: sender)
-//        let name=username.text ?? ""
-//        let stunum=usernum.text ?? ""
-//        let sex=self.sex.text ?? ""
-//        let QQ=self.QQ.text ?? ""
-//        let dormitory=self.dormitory.text ?? ""
-//        let doornum=self.doornum.text ?? ""
-//        let password=userpassword1st.text ?? ""
-//
+//        let nextpage=segue.destination as? HomeViewController
+//        nextpage?.editButtonItem.title="已登录"
 //    }
     
     private func saveUser(){

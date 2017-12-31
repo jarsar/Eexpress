@@ -8,6 +8,7 @@
 
 import UIKit
 import os.log
+import Alamofire
 class ResetPasswordViewController: UIViewController,UITextFieldDelegate {
 
     @IBOutlet weak var oldpassword: UITextField!
@@ -33,9 +34,14 @@ class ResetPasswordViewController: UIViewController,UITextFieldDelegate {
     private func judgepassword(){
         if oldpassword.text==oldlogin?.password{
             if newpassword1.text == newpassword2.text{
-                password=Login()
+                password=loadpassword()
                 password?.set_password(password: newpassword1.text!)
                 savepassword()
+                let json_login=[
+                    "stunum":password?.stunum,
+                    "password":password?.password
+                ]
+                 Alamofire.request("http://localhost:3000/login/resetpassword", method:.put, parameters:json_login, encoding: JSONEncoding.default, headers: nil)
                 self.navigationController?.popViewController(animated: true)
             }else{
                 showerror.text="两次密码不一致!"

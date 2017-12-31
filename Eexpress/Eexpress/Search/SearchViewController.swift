@@ -21,7 +21,10 @@ class SearchViewController: UIViewController,UITextFieldDelegate {
         expressname.delegate = self
         // Do any additional setup after loading the view.
     }
-
+    override func viewWillAppear(_ animated: Bool) {
+        dormitory.text=""
+        expressname.text=""
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
